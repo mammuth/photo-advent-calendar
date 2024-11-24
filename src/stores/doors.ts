@@ -1,8 +1,8 @@
-import { useRoute } from 'vue-router';
-import { defineStore } from 'pinia';
-import { computed, ref, watch } from 'vue';
+import { useRoute } from "vue-router";
+import { defineStore } from "pinia";
+import { computed } from "vue";
 
-export const useDoorsStore = defineStore('openedDoors', {
+export const useDoorsStore = defineStore("openedDoors", {
   state: () => {
     const route = useRoute();
     const previewMode = computed(() => route.query.preview !== undefined);
@@ -13,10 +13,16 @@ export const useDoorsStore = defineStore('openedDoors', {
     };
   },
   actions: {
-    openDoor(id: number) {
-      // todo validation - don't allow opening all doors
-      if (!this.persistedOpenedDoors.includes(id)) {
-        this.persistedOpenedDoors.push(id);
+    openDoor(day: number) {
+      const currentDay = new Date().getDate();
+
+      if (day > currentDay && !this.previewMode) {
+        window.alert(`It's not time to open door ${day} yet!`);
+        return;
+      }
+
+      if (!this.persistedOpenedDoors.includes(day)) {
+        this.persistedOpenedDoors.push(day);
       }
     },
     resetDoors() {

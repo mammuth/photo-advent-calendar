@@ -50,7 +50,6 @@ const getImageUrl = (day: number) => {
     for (const ext of supportedExtensions) {
         const filePath = `/src/assets/calendars/${props.calendar.slug}/${day}.${ext}`;
         if (images[filePath]) {
-            console.log('images[filePath].default', images[filePath].default);
             return images[filePath].default;
         }
     }
