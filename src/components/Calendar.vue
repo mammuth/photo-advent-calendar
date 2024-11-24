@@ -1,5 +1,5 @@
 <template>
-    <div class="calendar">
+    <div class="calendar" :style="{ backgroundImage: `url(${backgroundImage})` }">
         <h1 class="title">{{ calendar.title }}</h1>
         <p class="description">{{ calendar.description }}</p>
         <div class="doors">
@@ -20,7 +20,7 @@ import type { CalendarData } from '@/data/calendars';
 import { useDoorsStore } from '@/stores/doors';
 
 import Modal from '@/components/Modal.vue';
-import backgroundImage from '/src/assets/calendars/background.jpg';
+import backgroundImage from '@/assets/background.jpg';
 
 const doorsStore = useDoorsStore();
 
@@ -44,7 +44,7 @@ const handleDoorClick = (day: number) => {
 
 const getImageUrl = (day: number) => {
     const supportedExtensions = ['svg', 'jpg', 'jpeg', 'png'];
-    const images = import.meta.glob('/src/assets/calendars/**/*.{svg,jpg,jpeg,png}', { eager: true });
+    const images: { [key: string]: { default: string } } = import.meta.glob('/src/assets/calendars/**/*.{svg,jpg,jpeg,png}', { eager: true });
 
     for (const ext of supportedExtensions) {
         const filePath = `/src/assets/calendars/${props.calendar.slug}/${day}.${ext}`;
@@ -53,6 +53,8 @@ const getImageUrl = (day: number) => {
             return images[filePath].default;
         }
     }
+
+    return '';
 };
 
 const showModal = (day: number) => {
@@ -71,9 +73,10 @@ const closeModal = () => {
 .calendar {
     width: 100vw;
     height: 100%;
-
-    background: url('/src/assets/background.jpg') no-repeat top center #830000;
     background-size: cover;
+    background-repeat: no-repeat;
+    background-position: top center;
+    background-color: #830000;
 }
 
 
