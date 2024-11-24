@@ -1,9 +1,6 @@
 {
   "rewrites": [
     {
-      "handle": "filesystem"
-    },
-    {
       "source": "/statics/:path*",
       "destination": "/statics/:path*"
     },
