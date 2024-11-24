@@ -5,18 +5,20 @@ import { computed } from "vue";
 export const useDoorsStore = defineStore("openedDoors", {
   state: () => {
     const route = useRoute();
-    const previewMode = computed(() => route.query.preview !== undefined);
+    const allowAll = computed(() => route.query.allowAll !== undefined);
+    const showAll = computed(() => route.query.showAll !== undefined);
 
     return {
       persistedOpenedDoors: [] as number[],
-      previewMode: previewMode,
+      allowAll: allowAll,
+      showAll: showAll,
     };
   },
   actions: {
     openDoor(day: number) {
       const currentDay = new Date().getDate();
 
-      if (day > currentDay && !this.previewMode) {
+      if (day > currentDay && !this.allowAll) {
         window.alert(`It's not time to open door ${day} yet!`);
         return;
       }
@@ -31,7 +33,7 @@ export const useDoorsStore = defineStore("openedDoors", {
   },
   getters: {
     openedDoors(state) {
-      if (state.previewMode) {
+      if (state.showAll) {
         const allDoors = Array.from({ length: 24 }, (_, i) => i + 1);
         return allDoors;
       } else {
