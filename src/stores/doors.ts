@@ -2,10 +2,10 @@ import { defineStore } from 'pinia';
 
 export const useDoorsStore = defineStore('openedDoors', {
   state: () => ({
-    openedDoors: [],
+    openedDoors: [] as number[],
   }),
   actions: {
-    openDoor(id) {
+    openDoor(id: number) {
         // todo validation?
         this.openedDoors.push(id);
     },

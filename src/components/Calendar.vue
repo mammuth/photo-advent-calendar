@@ -15,7 +15,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import { CalendarData } from '@/data/calendars';
+import type { CalendarData } from '@/data/calendars';
 
 import { useDoorsStore } from '@/stores/doors';
 
@@ -119,8 +119,8 @@ const closeModal = () => {
     margin: 0 auto;
     background-size: cover;
 
-    .not(.opened) {
-        background-image: none;
+    &:not(.opened) {
+        background-image: none !important;
     }
 }
 

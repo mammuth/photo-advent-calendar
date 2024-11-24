@@ -10,7 +10,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import Calendar from '@/components/Calendar.vue';
-import { calendars } from '@/data/calendars.ts';
+import { calendars } from '@/data/calendars';
 
 const props = defineProps<{
   slug: string;
