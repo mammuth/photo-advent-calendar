@@ -10,6 +10,7 @@
         </div>
         <Modal v-if="isModalVisible" :isVisible="isModalVisible" :contentUrl="modalContentUrl"
             :contentType="modalContentType" @close="closeModal" />
+        <a href="#" @click="resetDoors">Reset doors</a>
     </div>
 </template>
 
@@ -24,7 +25,7 @@ import backgroundImage from '@/assets/background.jpg';
 
 const doorsStore = useDoorsStore();
 
-const { openedDoors, openDoor } = doorsStore;
+const { openedDoors, openDoor, resetDoors } = doorsStore;
 
 const props = defineProps<{
     calendar: CalendarData;
@@ -85,6 +86,7 @@ const closeModal = () => {
     color: white;
     font-family: 'Mountains of Christmas', cursive;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    padding: 0 10px;
 }
 
 .title {
@@ -137,5 +139,9 @@ const closeModal = () => {
 
 .door:hover {
     transform: scale(1.05);
+}
+
+a {
+    color: white;
 }
 </style>
