@@ -10,6 +10,12 @@ const router = createRouter({
       component: HomeView,
     },
     {
+      path: '/calendars/:slug',
+      name: 'calendar',
+      component: () => import('../views/CalendarView.vue'),
+      props: true,
+    },
+    {
       path: '/about',
       name: 'about',
       // route level code-splitting

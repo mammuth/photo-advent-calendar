@@ -1,39 +1,12 @@
 # photo-advent-calendar
 
-This template should help get you started developing with Vue 3 in Vite.
+A digital advent calendar you can share with friends and family.
 
-## Recommended IDE Setup
+To run it yourself
+- upload photos/videos in `public/calendars/<slug>`. Their filename should be `1.png`, `2.jpg`, `3.mp4` etc.
+- modify `calendars.ts` to your slug
+- use the `?preview` flag to show all your photos at once
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
-
-## Type Support for `.vue` Imports in TS
-
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vite.dev/config/).
-
-## Project Setup
-
-```sh
-npm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
-```
-
-### Type-Check, Compile and Minify for Production
-
-```sh
-npm run build
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
-```
+# Run
+- `npm install`
+- `npm run dev`
