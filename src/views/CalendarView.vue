@@ -3,7 +3,7 @@
         <Calendar :calendar="calendarData" />
     </template>
     <template v-else>
-        <p>Calendar {slug} not found. Double check your configuration in calendars.ts</p>
+        <p>Calendar {{slug}} not found. Double check your configuration in calendars.ts</p>
     </template>
 </template>
 

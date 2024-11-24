@@ -6,13 +6,13 @@ export interface CalendarData {
 
 export const calendars: CalendarData[] = [
     {
+        title: 'Merry Christmas 2024!',
+        description: 'Demo advent calendar via https://github.com/mammuth/photo-advent-calendar',
+        slug: 'demo'
+    },
+    {
         title: 'Adventskalender 2024',
         description: 'Von Max für Marion, Stefan, Irmgard, und Manfred.',
         slug: 'muth'
-    },
-    {
-        title: 'Calendar 2',
-        description: 'This is the second calendar',
-        slug: 'pedolzky'
     },
 ];
