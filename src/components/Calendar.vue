@@ -38,9 +38,8 @@ const modalContentType = ref<'image' | 'video'>('image');
 const handleDoorClick = (day: number) => {
     if (!openedDoors.includes(day)) {
         openDoor(day);
-    } else {
-        showModal(day);
     }
+    showModal(day);
 };
 
 const getImageUrl = (day: number) => {
