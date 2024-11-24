@@ -20,6 +20,7 @@ import type { CalendarData } from '@/data/calendars';
 import { useDoorsStore } from '@/stores/doors';
 
 import Modal from '@/components/Modal.vue';
+import backgroundImage from '/src/assets/calendars/background.jpg';
 
 const doorsStore = useDoorsStore();
 
@@ -42,16 +43,22 @@ const handleDoorClick = (day: number) => {
 };
 
 const getImageUrl = (day: number) => {
-    const fileExtension = 'jpg';
-    // todo support other file extensions
-    return `/statics/calendars/${props.calendar.slug}/${day}.${fileExtension}`;
+    const supportedExtensions = ['svg', 'jpg', 'jpeg', 'png'];
+    const images = import.meta.glob('/src/assets/calendars/**/*.{svg,jpg,jpeg,png}', { eager: true });
+
+    for (const ext of supportedExtensions) {
+        const filePath = `/src/assets/calendars/${props.calendar.slug}/${day}.${ext}`;
+        if (images[filePath]) {
+            console.log('images[filePath].default', images[filePath].default);
+            return images[filePath].default;
+        }
+    }
 };
 
 const showModal = (day: number) => {
-    const fileExtension = 'jpg'; // or 'mp4' for video
-    modalContentUrl.value = getImageUrl(day);
+    modalContentUrl.value = getImageUrl(day) + '?url';
     // todo support video
-    modalContentType.value = fileExtension === 'jpg' ? 'image' : 'video';
+    modalContentType.value = 'image';
     isModalVisible.value = true;
 };
 
@@ -65,7 +72,7 @@ const closeModal = () => {
     width: 100vw;
     height: 100%;
 
-    background: url(https://png.pngtree.com/thumb_back/fw800/background/20190223/ourmid/pngtree-stylish-atmosphere-red-christmas-poster-background-backgroundred-christmaschristmas-poster-image_75899.jpg) no-repeat top center #82d8cb;
+    background: url('/src/assets/background.jpg') no-repeat top center #830000;
     background-size: cover;
 }
 
@@ -78,7 +85,7 @@ const closeModal = () => {
 }
 
 .title {
-    padding-top: 50px;
+    padding-top: 30px;
     font-weight: bold;
     font-size: 2.5rem;
     text-align: center;
@@ -118,6 +125,7 @@ const closeModal = () => {
     transition: all 0.3s ease;
     margin: 0 auto;
     background-size: cover;
+    background-position: center center;
 
     &:not(.opened) {
         background-image: none !important;

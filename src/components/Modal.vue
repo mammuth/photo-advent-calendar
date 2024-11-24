@@ -1,3 +1,19 @@
+<template>
+  <transition name="modal" @after-leave="modalVisible = false">
+    <div v-if="modalVisible" class="modal-overlay" @click="close">
+      <div :class="['modal-content', { 'scale-out': isClosing }]" @click.stop>
+        <button class="close-button" @click="close">✖️</button>
+        <div v-if="contentType === 'image'" class="content-container">
+          <img :src="contentUrl" alt="Fullscreen content" @click="close" />
+        </div>
+        <div v-if="contentType === 'video'" class="content-container">
+          <video controls :src="contentUrl" @click="close"></video>
+        </div>
+      </div>
+    </div>
+  </transition>
+</template>
+
 <script setup lang="ts">
 import { ref, watch } from 'vue';
 
@@ -29,22 +45,6 @@ watch(() => props.isVisible, (newVal) => {
 });
 </script>
 
-<template>
-  <transition name="modal" @after-leave="modalVisible = false">
-    <div v-if="modalVisible" class="modal-overlay" @click="close">
-      <div :class="['modal-content', { 'scale-out': isClosing }]" @click.stop>
-        <button class="close-button" @click="close">✖️</button>
-        <div v-if="contentType === 'image'" class="content-container">
-          <img :src="contentUrl" alt="Fullscreen content" @click="close" />
-        </div>
-        <div v-if="contentType === 'video'" class="content-container">
-          <video controls :src="contentUrl" @click="close"></video>
-        </div>
-      </div>
-    </div>
-  </transition>
-</template>
-
 <style scoped>
 .modal-overlay {
   position: fixed;
@@ -63,6 +63,7 @@ watch(() => props.isVisible, (newVal) => {
 .modal-content {
   position: relative;
   border-radius: 8px;
+  width: 100%;
   max-width: 90vw;
   max-height: 90vh;
   overflow: auto;
