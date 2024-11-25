@@ -69,7 +69,6 @@ const closeModal = () => {
     background-color: #830000;
 }
 
-
 .title,
 .description {
     color: white;
@@ -81,16 +80,14 @@ const closeModal = () => {
 .title {
     padding-top: 30px;
     font-weight: bold;
-    font-size: 2.5rem;
+    font-size: 2rem;
+    line-height: 2rem;
     text-align: center;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 100%;
 }
 
 .description {
-    font-size: 1.5rem;
+    margin-top: 12px;
+    font-size: 1.2rem;
     text-align: center;
 }
 
