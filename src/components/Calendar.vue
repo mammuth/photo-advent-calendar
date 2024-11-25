@@ -42,23 +42,12 @@ const handleDoorClick = (day: number) => {
     showModal(day);
 };
 
-const allDoorImages: { [key: string]: { default: string } } = import.meta.glob('/src/assets/calendars/**/*.{svg,jpg,jpeg,png}', { eager: true });
-
 const getImageUrl = (day: number) => {
-    const supportedExtensions = ['svg', 'jpg', 'jpeg', 'png'];
-
-    for (const ext of supportedExtensions) {
-        const filePath = `/src/assets/calendars/${props.calendar.slug}/${day}.${ext}`;
-        if (allDoorImages[filePath]) {
-            return allDoorImages[filePath].default;
-        }
-    }
-
-    return '';
+    return `/statics/calendars/${props.calendar.slug}/${day}.jpg`;
 };
 
 const showModal = (day: number) => {
-    modalContentUrl.value = getImageUrl(day) + '?url';
+    modalContentUrl.value = getImageUrl(day);
     // todo support video
     modalContentType.value = 'image';
     isModalVisible.value = true;
