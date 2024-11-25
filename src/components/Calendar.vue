@@ -10,7 +10,7 @@
         </div>
         <Modal v-if="isModalVisible" :isVisible="isModalVisible" :contentUrl="modalContentUrl"
             :contentType="modalContentType" @close="closeModal" />
-        <a href="#" @click="resetDoors">Reset doors</a>
+        <a class="reset-doors" href="#" @click="resetDoors">Reset doors</a>
     </div>
 </template>
 
@@ -62,6 +62,7 @@ const closeModal = () => {
 .calendar {
     width: 100vw;
     height: 100%;
+    min-height: 100vh;
     background-size: cover;
     background-repeat: no-repeat;
     background-position: top center;
@@ -131,5 +132,13 @@ const closeModal = () => {
 
 a {
     color: white;
+}
+
+.reset-doors {
+    display: block;
+    padding: 16px 0;
+    color: white;
+    text-align: center;
+    margin: 0 auto;
 }
 </style>

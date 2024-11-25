@@ -63,11 +63,32 @@ watch(() => props.isVisible, (newVal) => {
 .modal-content {
   position: relative;
   border-radius: 8px;
-  width: 100%;
-  max-width: 90vw;
-  max-height: 90vh;
-  overflow: auto;
+  width: 95vw;
+  height: 95vh;
+  max-width: 95vw;
+  max-height: 95vh;
+  overflow: hidden;
   animation: scaleIn 0.3s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.content-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+img, video {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  max-width: 100%;
+  max-height: 100%;
+  cursor: pointer;
 }
 
 .modal-content.scale-out {
@@ -82,20 +103,20 @@ watch(() => props.isVisible, (newVal) => {
   border: none;
   font-size: 20px;
   cursor: pointer;
-}
 
-.content-container {
-  max-width: 100%;
-  max-height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-img, video {
-  max-width: 100%;
-  max-height: 100%;
-  cursor: pointer;
+  &::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    padding: 16px;
+    background-color: white;
+    border-radius: 100%;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    transform: translate(-50%, -50%);
+  }
 }
 
 @keyframes fadeIn {
