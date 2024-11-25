@@ -1,0 +1,12 @@
+{
+  "rewrites": [
+    {
+      "source": "/statics/:path*",
+      "destination": "/statics/:path*"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/"
+    }
+  ]
+}
