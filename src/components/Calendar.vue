@@ -42,14 +42,15 @@ const handleDoorClick = (day: number) => {
     showModal(day);
 };
 
+const allDoorImages: { [key: string]: { default: string } } = import.meta.glob('/src/assets/calendars/**/*.{svg,jpg,jpeg,png}', { eager: true });
+
 const getImageUrl = (day: number) => {
     const supportedExtensions = ['svg', 'jpg', 'jpeg', 'png'];
-    const images: { [key: string]: { default: string } } = import.meta.glob('/src/assets/calendars/**/*.{svg,jpg,jpeg,png}', { eager: true });
 
     for (const ext of supportedExtensions) {
         const filePath = `/src/assets/calendars/${props.calendar.slug}/${day}.${ext}`;
-        if (images[filePath]) {
-            return images[filePath].default;
+        if (allDoorImages[filePath]) {
+            return allDoorImages[filePath].default;
         }
     }
 
