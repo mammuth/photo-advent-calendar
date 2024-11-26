@@ -5,24 +5,14 @@
     <h1 class="title">{{ calendar.title }}</h1>
     <p class="description">{{ calendar.description }}</p>
     <div class="doors">
-      <div
-        v-for="day in orderedDoors"
-        :key="day"
-        class="door"
-        :class="{ opened: openedDoors.includes(day) }"
-        @click="handleDoorClick(day)"
-        :style="{ backgroundImage: `url(${getImageUrl(day)})` }"
-      >
+      <div v-for="day in orderedDoors" :key="day" class="door" :class="{ opened: openedDoors.includes(day) }"
+        @click="handleDoorClick(day)" :style="{ backgroundImage: `url(${getImageUrl(day)})` }">
         <div class="label">{{ day }}</div>
       </div>
     </div>
-    <Modal
-      v-if="isModalVisible"
-      :isVisible="isModalVisible"
-      :contentUrl="modalContentUrl"
-      :contentType="modalContentType"
-      @close="closeModal"
-    />
+    <audio ref="audioPlayer" preload="auto"></audio>
+    <Modal v-if="isModalVisible" :isVisible="isModalVisible" :contentUrl="modalContentUrl"
+      :contentType="modalContentType" @close="closeModal" />
     <a class="reset-doors" href="#" @click="resetDoors">Reset doors</a>
   </div>
 </template>
@@ -39,8 +29,7 @@ import SnowFlakes from "./SnowFlakes.vue";
 
 const doorsStore = useDoorsStore();
 
-const { openedDoors, openDoor, resetDoors, doorsOrder, initializeDoorsOrder } =
-  doorsStore;
+const { openedDoors, openDoor, resetDoors, doorsOrder, initializeDoorsOrder } = doorsStore;
 
 const props = defineProps<{
   calendar: CalendarData;
@@ -49,10 +38,23 @@ const props = defineProps<{
 const isModalVisible = ref(false);
 const modalContentUrl = ref("");
 const modalContentType = ref<"image" | "video">("image");
+const audioPlayer = ref<HTMLAudioElement | null>(null);
+
+const audioFiles = [
+  "/statics/door-sounds/1.mp3",
+  "/statics/door-sounds/2.mp3",
+  "/statics/door-sounds/3.mp3",
+  "/statics/door-sounds/4.mp3",
+  "/statics/door-sounds/5.mp3",
+  "/statics/door-sounds/6.mp3",
+  "/statics/door-sounds/7.mp3",
+  "/statics/door-sounds/8.mp3",
+];
 
 const handleDoorClick = (day: number) => {
   if (!openedDoors.includes(day)) {
     openDoor(day);
+    playRandomDoorSound();
   }
   showModal(day);
 };
@@ -68,6 +70,14 @@ const orderedDoors = computed(() => {
     return [...Array(24).keys()].map((i) => i + 1);
   }
 });
+
+const playRandomDoorSound = () => {
+  const randomAudioFile = audioFiles[Math.floor(Math.random() * audioFiles.length)];
+  if (audioPlayer.value) {
+    audioPlayer.value.src = randomAudioFile;
+    audioPlayer.value.play();
+  }
+};
 
 const showModal = (day: number) => {
   modalContentUrl.value = getImageUrl(day);

@@ -4,6 +4,7 @@ export interface CalendarData {
   slug: string;
   shuffleDoors: boolean;
   snowfall: boolean;
+  soundEffects: boolean;
 }
 
 export const calendars: CalendarData[] = [
@@ -14,5 +15,6 @@ export const calendars: CalendarData[] = [
     slug: "demo",
     shuffleDoors: true,
     snowfall: true,
+    soundEffects: true,
   },
 ];
