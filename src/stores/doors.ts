@@ -10,6 +10,7 @@ export const useDoorsStore = defineStore("openedDoors", {
 
     return {
       persistedOpenedDoors: [] as number[],
+      doorsOrder: [] as number[],
       allowAll: allowAll,
       showAll: showAll,
     };
@@ -29,6 +30,12 @@ export const useDoorsStore = defineStore("openedDoors", {
     },
     resetDoors() {
       this.persistedOpenedDoors = [];
+      this.doorsOrder = generateDoorsOrder();
+    },
+    initializeDoorsOrder() {
+      if (this.doorsOrder.length === 0) {
+        this.doorsOrder = generateDoorsOrder();
+      }
     },
   },
   getters: {
@@ -39,7 +46,14 @@ export const useDoorsStore = defineStore("openedDoors", {
       } else {
         return state.persistedOpenedDoors;
       }
-    },
+    }
   },
-  persist: true,
+  persist: {
+    paths: ['persistedOpenedDoors', 'doorsOrder'],
+  },
 });
+
+function generateDoorsOrder(): number[] {
+  const days = Array.from({ length: 24 }, (_, i) => i + 1);
+  return days.sort(() => Math.random() - 0.5);
+}

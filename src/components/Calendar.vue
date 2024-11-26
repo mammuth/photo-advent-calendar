@@ -3,7 +3,7 @@
         <h1 class="title">{{ calendar.title }}</h1>
         <p class="description">{{ calendar.description }}</p>
         <div class="doors">
-            <div v-for="day in 24" :key="day" class='door' :class="{ opened: openedDoors.includes(day) }"
+            <div v-for="day in orderedDoors" :key="day" class='door' :class="{ opened: openedDoors.includes(day) }"
                 @click="handleDoorClick(day)" :style="{ backgroundImage: `url(${getImageUrl(day)})` }">
                 <div class="label">{{ day }}</div>
             </div>
@@ -15,7 +15,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 import type { CalendarData } from '@/data/calendars';
 
 import { useDoorsStore } from '@/stores/doors';
@@ -25,7 +25,7 @@ import backgroundImage from '@/assets/background.jpg';
 
 const doorsStore = useDoorsStore();
 
-const { openedDoors, openDoor, resetDoors } = doorsStore;
+const { openedDoors, openDoor, resetDoors, doorsOrder } = doorsStore;
 
 const props = defineProps<{
     calendar: CalendarData;
@@ -46,6 +46,15 @@ const getImageUrl = (day: number) => {
     return `/statics/calendars/${props.calendar.slug}/${day}.jpg`;
 };
 
+const orderedDoors = computed(() => {
+    if (props.calendar.shuffleDoors) {
+        console.log('doorsOrder', doorsOrder);
+        return doorsOrder;
+    } else {
+        return [...Array(24).keys()].map(i => i + 1);
+    }
+});
+
 const showModal = (day: number) => {
     modalContentUrl.value = getImageUrl(day);
     // todo support video
@@ -56,6 +65,10 @@ const showModal = (day: number) => {
 const closeModal = () => {
     isModalVisible.value = false;
 };
+
+onMounted(() => {
+  doorsStore.initializeDoorsOrder();
+});
 </script>
 
 <style scoped>
