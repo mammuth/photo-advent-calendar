@@ -46,11 +46,9 @@ export const useDoorsStore = defineStore("openedDoors", {
       } else {
         return state.persistedOpenedDoors;
       }
-    }
+    },
   },
-  persist: {
-    paths: ['persistedOpenedDoors', 'doorsOrder'],
-  },
+  persist: true,
 });
 
 function generateDoorsOrder(): number[] {

@@ -15,15 +15,15 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from 'vue';
+import { ref, watch } from "vue";
 
 const props = defineProps<{
   isVisible: boolean;
   contentUrl: string;
-  contentType: 'image' | 'video';
+  contentType: "image" | "video";
 }>();
 
-const emit = defineEmits(['close']);
+const emit = defineEmits(["close"]);
 
 const modalVisible = ref(props.isVisible);
 const isClosing = ref(false);
@@ -31,18 +31,21 @@ const isClosing = ref(false);
 const close = () => {
   isClosing.value = true;
   setTimeout(() => {
-    emit('close');
+    emit("close");
     isClosing.value = false;
   }, 300); // Match the duration of the scaleOut animation
 };
 
-watch(() => props.isVisible, (newVal) => {
-  if (newVal) {
-    modalVisible.value = true;
-  } else {
-    close();
-  }
-});
+watch(
+  () => props.isVisible,
+  (newVal) => {
+    if (newVal) {
+      modalVisible.value = true;
+    } else {
+      close();
+    }
+  },
+);
 </script>
 
 <style scoped>
@@ -82,7 +85,8 @@ watch(() => props.isVisible, (newVal) => {
   align-items: center;
 }
 
-img, video {
+img,
+video {
   width: 100%;
   height: 100%;
   object-fit: contain;
@@ -105,7 +109,7 @@ img, video {
   cursor: pointer;
 
   &::before {
-    content: '';
+    content: "";
     position: absolute;
     top: 50%;
     left: 50%;
