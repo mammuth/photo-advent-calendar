@@ -1,4 +1,6 @@
 <template>
+  <SnowFlakes />
+
   <div class="calendar" :style="{ backgroundImage: `url(${backgroundImage})` }">
     <h1 class="title">{{ calendar.title }}</h1>
     <p class="description">{{ calendar.description }}</p>
@@ -33,6 +35,7 @@ import { useDoorsStore } from "@/stores/doors";
 
 import Modal from "@/components/Modal.vue";
 import backgroundImage from "@/assets/background.jpg";
+import SnowFlakes from "./SnowFlakes.vue";
 
 const doorsStore = useDoorsStore();
 

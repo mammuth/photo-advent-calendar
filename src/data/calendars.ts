@@ -3,6 +3,7 @@ export interface CalendarData {
   description: string;
   slug: string;
   shuffleDoors: boolean;
+  snowfall: boolean;
 }
 
 export const calendars: CalendarData[] = [
@@ -12,5 +13,6 @@ export const calendars: CalendarData[] = [
       "Demo advent calendar via https://github.com/mammuth/photo-advent-calendar",
     slug: "demo",
     shuffleDoors: true,
+    snowfall: true,
   },
 ];
