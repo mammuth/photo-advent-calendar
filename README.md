@@ -10,8 +10,8 @@ It supports hosting multiple calendars on different URLs within one deployment.
 
 ## Run it yourself
 - fork this repository
-- upload photos in `public/statics/calendars/<slug>`. Their filename should be `1.jpg`, `2.jpg`, etc. It currently expects jpgs but you can modify it in `Calendar.vue`.
-- modify `calendars.ts` to provide a slug, title and description.
+- modify `src/data/calendars.ts` to provide a slug, title and description.
+- upload photos in `src/public/statics/calendars/<slug>`. Their filename should be `1.jpg`, `2.jpg`, etc. It currently expects jpgs but you can modify it in `Calendar.vue`.
 - use the url param `showAll` to dispaly all your images without opening them. (Use `allowAll` to allow opening all, without checking whether the day is in the past)
 
 ## Deploy

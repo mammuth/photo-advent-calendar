@@ -10,9 +10,4 @@ export const calendars: CalendarData[] = [
         description: 'Demo advent calendar via https://github.com/mammuth/photo-advent-calendar',
         slug: 'demo'
     },
-    {
-        title: 'Adventskalender 2024',
-        description: 'Von Max für Marion, Stefan, Irmgard, und Manfred.',
-        slug: 'muth'
-    },
 ];
