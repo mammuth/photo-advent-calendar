@@ -15,6 +15,12 @@ It supports hosting multiple calendars on different URLs within one deployment.
 - upload photos in `src/public/statics/calendars/<slug>`. Their filename should be `1.jpg`, `2.jpg`, etc. It currently expects jpgs but you can modify it in `Calendar.vue`.
 - use the url param `showAll` to dispaly all your images without opening them. (Use `allowAll` to allow opening all, without checking whether the day is in the past)
 
+Oneliner for renaming 24 jpg files in a folder to 1.jpg..24.jpg:
+
+```bash
+ls *.jpg | python -c "import sys, random; files = sys.stdin.readlines(); random.shuffle(files); print(''.join(['mv {} {}.jpg\n'.format(f.strip(), i+1) for i, f in enumerate(files[:24])]))" | bash
+```
+
 **Deploy**
 
 - `npm run build` and host yourself
