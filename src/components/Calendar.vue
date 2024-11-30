@@ -33,17 +33,21 @@ import { useRoute } from "vue-router";
 import { ref, computed, onMounted } from "vue";
 import type { CalendarData } from "@/data/calendars";
 
-import { useDoorsStore } from "@/stores/doors";
-
 import Modal from "@/components/Modal.vue";
-import backgroundImage from "@/assets/background.jpg";
 import SnowFlakes from "./SnowFlakes.vue";
+import { useDoorsStore } from "@/stores/doors";
+import backgroundImage from "@/assets/background.jpg";
+
+const props = defineProps<{
+  calendar: CalendarData;
+}>();
 
 const route = useRoute();
-const doorsStore = useDoorsStore();
-
 const allowAll = route.query.allowAll !== undefined;
 const showAll = route.query.showAll !== undefined;
+
+const doorsStore = useDoorsStore();
+const { openDoor, resetDoors, initializeDoorsOrder } = doorsStore;
 
 const openedDoors = computed(() => doorsStore.openedDoors(showAll));
 const doorsOrder = computed(() => doorsStore.doorsOrder);
@@ -55,12 +59,6 @@ const orderedDoors = computed(() => {
     return [...Array(24).keys()].map((i) => i + 1);
   }
 });
-
-const { openDoor, resetDoors, initializeDoorsOrder } = doorsStore;
-
-const props = defineProps<{
-  calendar: CalendarData;
-}>();
 
 const isModalVisible = ref(false);
 const modalContentUrl = ref("");
@@ -100,7 +98,6 @@ const playRandomDoorSound = () => {
 
 const showModal = (day: number) => {
   modalContentUrl.value = getImageUrl(day);
-  // todo support video
   modalContentType.value = "image";
   isModalVisible.value = true;
 };
@@ -181,10 +178,6 @@ onMounted(() => {
 
 .door:hover {
   transform: scale(1.05);
-}
-
-a {
-  color: white;
 }
 
 .reset-doors {
