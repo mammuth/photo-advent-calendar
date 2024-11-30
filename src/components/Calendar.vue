@@ -5,19 +5,31 @@
     <h1 class="title">{{ calendar.title }}</h1>
     <p class="description">{{ calendar.description }}</p>
     <div class="doors">
-      <div v-for="day in orderedDoors" :key="day" class="door" :class="{ opened: openedDoors.includes(day) }"
-        @click="handleDoorClick(day)" :style="{ backgroundImage: `url(${getImageUrl(day)})` }">
+      <div
+        v-for="day in orderedDoors"
+        :key="day"
+        class="door"
+        :class="{ opened: openedDoors.includes(day) }"
+        @click="handleDoorClick(day)"
+        :style="{ backgroundImage: `url(${getImageUrl(day)})` }"
+      >
         <div class="label">{{ day }}</div>
       </div>
     </div>
     <audio ref="audioPlayer" preload="auto"></audio>
-    <Modal v-if="isModalVisible" :isVisible="isModalVisible" :contentUrl="modalContentUrl"
-      :contentType="modalContentType" @close="closeModal" />
+    <Modal
+      v-if="isModalVisible"
+      :isVisible="isModalVisible"
+      :contentUrl="modalContentUrl"
+      :contentType="modalContentType"
+      @close="closeModal"
+    />
     <a class="reset-doors" href="#" @click="resetDoors">Reset doors</a>
   </div>
 </template>
 
 <script setup lang="ts">
+import { useRoute } from "vue-router";
 import { ref, computed, onMounted } from "vue";
 import type { CalendarData } from "@/data/calendars";
 
@@ -27,9 +39,24 @@ import Modal from "@/components/Modal.vue";
 import backgroundImage from "@/assets/background.jpg";
 import SnowFlakes from "./SnowFlakes.vue";
 
+const route = useRoute();
 const doorsStore = useDoorsStore();
 
-const { openedDoors, openDoor, resetDoors, doorsOrder, initializeDoorsOrder } = doorsStore;
+const allowAll = route.query.allowAll !== undefined;
+const showAll = route.query.showAll !== undefined;
+
+const openedDoors = computed(() => doorsStore.openedDoors(showAll));
+const doorsOrder = computed(() => doorsStore.doorsOrder);
+
+const orderedDoors = computed(() => {
+  if (props.calendar.shuffleDoors) {
+    return doorsOrder.value;
+  } else {
+    return [...Array(24).keys()].map((i) => i + 1);
+  }
+});
+
+const { openDoor, resetDoors, initializeDoorsOrder } = doorsStore;
 
 const props = defineProps<{
   calendar: CalendarData;
@@ -52,8 +79,8 @@ const audioFiles = [
 ];
 
 const handleDoorClick = (day: number) => {
-  if (!openedDoors.includes(day)) {
-    openDoor(day);
+  if (!openedDoors.value.includes(day)) {
+    openDoor(day, allowAll);
     playRandomDoorSound();
   }
   showModal(day);
@@ -62,14 +89,6 @@ const handleDoorClick = (day: number) => {
 const getImageUrl = (day: number) => {
   return `/statics/calendars/${props.calendar.slug}/${day}.jpg`;
 };
-
-const orderedDoors = computed(() => {
-  if (props.calendar.shuffleDoors) {
-    return doorsOrder;
-  } else {
-    return [...Array(24).keys()].map((i) => i + 1);
-  }
-});
 
 const playRandomDoorSound = () => {
   const randomAudioFile = audioFiles[Math.floor(Math.random() * audioFiles.length)];

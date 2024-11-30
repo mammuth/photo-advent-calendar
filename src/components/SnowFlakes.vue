@@ -11,9 +11,12 @@
 
 <style scoped>
 .snowflakes {
-  width: 100%;
-  height: 1200px;
   position: absolute;
+  width: 100%;
+  height: 100%;
+  max-width: 100vw;
+  max-height: 100vh;
+  overflow: hidden;
   top: -90px;
   left: 0;
 }

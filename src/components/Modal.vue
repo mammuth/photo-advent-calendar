@@ -4,7 +4,7 @@
       <div :class="['modal-content', { 'scale-out': isClosing }]" @click.stop>
         <button class="close-button" @click="close">✖️</button>
         <div v-if="contentType === 'image'" class="content-container">
-          <img :src="contentUrl" alt="Fullscreen content" @click="close" />
+          <img :src="contentUrl" @click="close" />
         </div>
         <div v-if="contentType === 'video'" class="content-container">
           <video controls :src="contentUrl" @click="close"></video>
@@ -127,6 +127,7 @@ video {
   from {
     background: rgba(0, 0, 0, 0);
   }
+
   to {
     background: rgba(0, 0, 0, 0.8);
   }
@@ -136,6 +137,7 @@ video {
   from {
     transform: scale(0.8);
   }
+
   to {
     transform: scale(1);
   }
@@ -145,6 +147,7 @@ video {
   from {
     transform: scale(1);
   }
+
   to {
     transform: scale(0.8);
   }
