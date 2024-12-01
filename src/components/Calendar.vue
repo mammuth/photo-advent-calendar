@@ -5,14 +5,25 @@
     <h1 class="title">{{ calendar.title }}</h1>
     <p class="description">{{ calendar.description }}</p>
     <div class="doors">
-      <div v-for="day in orderedDoors" :key="day" class="door" :class="{ opened: openedDoors.includes(day) }"
-        @click="handleDoorClick(day)" :style="{ backgroundImage: `url(${getImageUrl(day)})` }">
+      <div
+        v-for="day in orderedDoors"
+        :key="day"
+        class="door"
+        :class="{ opened: openedDoors.includes(day) }"
+        @click="handleDoorClick(day)"
+        :style="{ backgroundImage: `url(${getImageUrl(day)})` }"
+      >
         <div class="label">{{ day }}</div>
       </div>
     </div>
     <audio ref="audioPlayer" preload="auto"></audio>
-    <Modal v-if="isModalVisible" :isVisible="isModalVisible" :contentUrl="modalContentUrl"
-      :contentType="modalContentType" @close="closeModal" />
+    <Modal
+      v-if="isModalVisible"
+      :isVisible="isModalVisible"
+      :contentUrl="modalContentUrl"
+      :contentType="modalContentType"
+      @close="closeModal"
+    />
     <a class="reset-doors" href="#" @click="resetDoors">Reset doors</a>
   </div>
 </template>
