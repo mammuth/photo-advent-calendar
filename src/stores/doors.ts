@@ -7,13 +7,6 @@ export const useDoorsStore = defineStore("openedDoors", {
   }),
   actions: {
     openDoor(day: number, allowAll: boolean) {
-      const currentDay = new Date().getDate();
-
-      if (day > currentDay && !allowAll) {
-        window.alert(`It's not time to open door ${day} yet!`);
-        return;
-      }
-
       if (!this.persistedOpenedDoors.includes(day)) {
         this.persistedOpenedDoors.push(day);
       }
